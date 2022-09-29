@@ -12,7 +12,7 @@ public class SearchChoice {
 		while(true) {
 			
 			System.out.println();
-			System.out.println("1. Search By Id");
+			System.out.println("1. Search By Faculty Id");
 			System.out.println("2. Search By Name");
 			System.out.println("3. View All Data");
 			System.out.println("4. Back");
