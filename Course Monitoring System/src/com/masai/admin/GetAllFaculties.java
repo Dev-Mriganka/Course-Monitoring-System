@@ -3,6 +3,7 @@ package com.masai.admin;
 import java.util.List;
 
 import com.masai.bean.Faculty;
+import com.masai.custom.ConsoleColors;
 import com.masai.dao.FacultyDao;
 import com.masai.dao.FacultyDaoImpl;
 import com.masai.exceptions.FacultyException;
@@ -30,7 +31,7 @@ public class GetAllFaculties {
 			
 		} catch (FacultyException fe) {
 
-			System.out.println(fe.getMessage());
+			System.out.println(ConsoleColors.RED_BACKGROUND+fe.getMessage()+ConsoleColors.RESET);
 		}
 		
 

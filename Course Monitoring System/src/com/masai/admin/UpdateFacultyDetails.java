@@ -2,6 +2,7 @@ package com.masai.admin;
 
 import java.util.Scanner;
 
+import com.masai.custom.ConsoleColors;
 import com.masai.dao.FacultyDao;
 import com.masai.dao.FacultyDaoImpl;
 
@@ -18,7 +19,7 @@ public class UpdateFacultyDetails {
 		
 		while(flag) {
 
-			System.out.println("What do you want to update?");
+			System.out.println(ConsoleColors.CYAN+"What do you want to update?");
 			System.out.println("1. First Name");
 			System.out.println("2. Last Name");
 			System.out.println("3. Address");
@@ -27,7 +28,7 @@ public class UpdateFacultyDetails {
 			System.out.println("6. Mobile");
 			System.out.println("7. Email");
 			System.out.println("8. Back");
-			System.out.println("9. Close");
+			System.out.println("9. Close" +ConsoleColors.RESET);
 				
 			int ch = sc.nextInt();
 			
@@ -35,7 +36,7 @@ public class UpdateFacultyDetails {
 				break;
 				
 			}else if(ch== 9) {
-				System.out.println("See You Soon...");
+				System.out.println(ConsoleColors.BANANA_YELLOW+"See You Soon..."+ConsoleColors.RESET);
 				System.exit(0);	
 			}
 			
@@ -66,7 +67,7 @@ public class UpdateFacultyDetails {
 					break;
 				}
 				else {
-					System.out.println("Wrong Input Try Again");
+					System.out.println(ConsoleColors.RED+"Wrong Input Try Again"+ConsoleColors.RESET);
 				}
 			}
 			
@@ -81,7 +82,7 @@ public class UpdateFacultyDetails {
 			System.out.println("--------------------");
 			System.out.println(result);
 			
-			System.out.println("Want to update anything else?(y/n)");
+			System.out.println(ConsoleColors.CYAN+"Want to update anything else?(y/n)"+ConsoleColors.RESET);
 			String choice = sc.next();
 			
 			
@@ -92,7 +93,7 @@ public class UpdateFacultyDetails {
 					flag = false;
 					break;
 				}else {
-					System.out.println("Wrong Input...!");
+					System.out.println(ConsoleColors.RED+"Wrong Input...!"+ConsoleColors.RESET);
 				}
 			}
 			

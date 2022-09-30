@@ -3,6 +3,7 @@ package com.masai.admin;
 import java.util.Scanner;
 
 import com.masai.bean.Faculty;
+import com.masai.custom.ConsoleColors;
 import com.masai.dao.FacultyDao;
 import com.masai.dao.FacultyDaoImpl;
 
@@ -13,26 +14,26 @@ public class AddFaculty {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter First Name of Faculty");
+		System.out.println(ConsoleColors.CYAN+"Enter First Name of Faculty"+ConsoleColors.RESET);
 		String fname = sc.next();
 		
-		System.out.println("Enter Last Name of Faculty");
+		System.out.println(ConsoleColors.CYAN+"Enter Last Name of Faculty"+ConsoleColors.RESET);
 		String lname = sc.next();
 		
 		sc.nextLine();
-		System.out.println("Enter Faculty Address");
+		System.out.println(ConsoleColors.CYAN+"Enter Faculty Address"+ConsoleColors.RESET);
 		String address = sc.nextLine();
 		
-		System.out.println("Enter Faculty State(Short Form)");
+		System.out.println(ConsoleColors.CYAN+"Enter Faculty State(Short Form)"+ConsoleColors.RESET);
 		String state = sc.next();
 		
-		System.out.println("Enter Faculty Pincode");
+		System.out.println(ConsoleColors.CYAN+"Enter Faculty Pincode"+ConsoleColors.RESET);
 		String pin = sc.next();
 		
-		System.out.println("Enter Faculty Mobile No.");
+		System.out.println(ConsoleColors.CYAN+"Enter Faculty Mobile No."+ConsoleColors.RESET);
 		String mobile = sc.next();
 		
-		System.out.println("Enter Faculty Email");
+		System.out.println(ConsoleColors.CYAN+"Enter Faculty Email"+ConsoleColors.RESET);
 		String email = sc.next();
 		
 		
