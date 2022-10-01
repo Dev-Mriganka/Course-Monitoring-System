@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.masai.bean.Faculty;
 import com.masai.custom.AutoPassGen;
+import com.masai.custom.ConsoleColors;
 import com.masai.exceptions.FacultyException;
 import com.masai.utility.DBconn;
 
@@ -19,9 +20,9 @@ public class FacultyDaoImpl implements FacultyDao {
 	
 	// Add New Faculty into Database
 	@Override
-	public String addFaculty(Faculty faculty) {
+	public String addFaculty(Faculty faculty) throws FacultyException{
 
-		String message = "Data Not Inserted...";
+		String message = ConsoleColors.RED+"Data Not Inserted..."+ConsoleColors.RESET;
 		
 		try(Connection conn = DBconn.provideConnection()){
 			
@@ -56,12 +57,12 @@ public class FacultyDaoImpl implements FacultyDao {
 			int x = ps1.executeUpdate();
 			
 			if(x>0) {		
-				message = "Faculty Added Successfully..";	
+				message = ConsoleColors.GREEN+"Faculty Added Successfully.."+ConsoleColors.RESET;	
 			}
 			
 		}catch(SQLException e) {
 			
-			message = e.getMessage();
+			message = ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET;
 			
 		}
 		
@@ -72,7 +73,6 @@ public class FacultyDaoImpl implements FacultyDao {
 	// Search Faculty With Name
 	@Override
 	public List<Faculty> searchFacultyByName(String name) throws FacultyException{
-		// TODO Auto-generated method stub
 		
 		List<Faculty> facultys = new ArrayList<>();
 		
@@ -103,21 +103,19 @@ public class FacultyDaoImpl implements FacultyDao {
 			}
 			
 			if(facultys.size() == 0)
-				throw new FacultyException("Faculty does not exist with this name "+ name + ".");
+				throw new FacultyException(ConsoleColors.RED_BACKGROUND+"Faculty does not exist with this name "+ name + "."+ConsoleColors.RESET);
 			
 			
 		}catch(SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			
-			throw new FacultyException(e.getMessage());
+			throw new FacultyException(ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET);
 		}
 		
 		
 		return facultys;
 	}
 
-
-	
 	
 	// Search Faculty With id
 	@Override
@@ -150,19 +148,20 @@ public class FacultyDaoImpl implements FacultyDao {
 				
 			}else
 			
-				throw new FacultyException("Faculty does not exist with this id "+ id + ".");
+				throw new FacultyException(ConsoleColors.RED_BACKGROUND+"Faculty does not exist with this id "+ id + "."+ConsoleColors.RESET);
 			
 		}catch(SQLException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			
-			throw new FacultyException(e.getMessage());
+			throw new FacultyException(ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET);
 		}
 		
 		return faculty;
 	}
 	
 	
-	// See All Faculty Details Present in Database
+	
+	
 	@Override
 	public List<Faculty> getAllFacultyDetails() throws FacultyException {
 		
@@ -191,13 +190,13 @@ public class FacultyDaoImpl implements FacultyDao {
 			}
 			
 			if(facultys.size() == 0)
-				throw new FacultyException("No Student found..");
+				throw new FacultyException(ConsoleColors.RED_BACKGROUND+"No Student found.."+ConsoleColors.RESET);
 
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 			
-			throw new FacultyException(e.getMessage());
+			throw new FacultyException(ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET);
 		}
 		
 		
@@ -206,11 +205,12 @@ public class FacultyDaoImpl implements FacultyDao {
 	}
 
 
+	
 	// Update details of faculty table
 	@Override
-	public String updateFacultyDetails(String str, String set, int id) {
+	public String updateFacultyDetails(String str, String set, int id) throws FacultyException{
 
-		String message = "Data Not Updated...";
+		String message = ConsoleColors.RED+"Data Not Updated..."+ConsoleColors.RESET;
 		
 		try(Connection conn = DBconn.provideConnection()){
 			
@@ -222,12 +222,12 @@ public class FacultyDaoImpl implements FacultyDao {
 			int x = ps.executeUpdate();
 			
 			if(x>0) {		
-				message = "Faculty Details Updated Successfully..";	
+				message = ConsoleColors.GREEN+"Faculty Details Updated Successfully.."+ConsoleColors.RESET;	
 			}
 			
 		}catch(SQLException e) {
 			
-			message = e.getMessage();
+			message = ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET;
 			
 		}
 		
