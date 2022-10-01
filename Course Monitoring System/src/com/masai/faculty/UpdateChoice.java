@@ -1,4 +1,4 @@
-package com.masai.admin;
+package com.masai.faculty;
 
 
 import java.util.Scanner;
@@ -24,18 +24,30 @@ public class UpdateChoice {
 			int ch = sc.nextInt();
 		
 			if(ch == 1) {
-				System.out.println(ConsoleColors.CYAN+"Enter id of Faculty"+ConsoleColors.RESET);
-				int id = sc.nextInt();
-				
-				UpdateFacultyDetails.UpdateById(id);
+				try {
+					System.out.println(ConsoleColors.CYAN+"Enter id of Faculty"+ConsoleColors.RESET);
+					int id = sc.nextInt();
+					
+					UpdateFacultyDetails.UpdateById(id);
+				}catch(Exception e) {
+					System.out.println();	
+					System.out.println(ConsoleColors.RED+"Wrong Input Try Again"+ConsoleColors.RESET);
+					System.out.println();
+					updateOptions();
+				}
 				
 			}else if(ch == 2) {
 				SearchFacultyByName.searchByName();
-				
-				System.out.println(ConsoleColors.CYAN+"Enter id of Faculty"+ConsoleColors.RESET);
-				int id = sc.nextInt();
-				
-				UpdateFacultyDetails.UpdateById(id);
+				try {
+					System.out.println(ConsoleColors.CYAN+"Enter id of Faculty"+ConsoleColors.RESET);
+					int id = sc.nextInt();
+					UpdateFacultyDetails.UpdateById(id);
+				}catch(Exception e) {
+					System.out.println();	
+					System.out.println(ConsoleColors.RED+"Wrong Input Try Again"+ConsoleColors.RESET);
+					System.out.println();
+					updateOptions();
+				}
 				
 			}else if(ch== 4) {
 				System.out.println(ConsoleColors.BANANA_YELLOW+"See You Soon..."+ConsoleColors.RESET);

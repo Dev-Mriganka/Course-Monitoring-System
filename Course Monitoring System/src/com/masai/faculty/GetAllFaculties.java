@@ -1,4 +1,4 @@
-package com.masai.admin;
+package com.masai.faculty;
 
 import java.util.List;
 
@@ -19,19 +19,21 @@ public class GetAllFaculties {
 			
 			facultys.forEach( f -> {
 				
-				System.out.println("Faculty ID : " + f.getFacultyId());
+				System.out.println();
+				System.out.println(ConsoleColors.ORANGE+"Faculty ID : " + f.getFacultyId());
 				System.out.println("Faculty Name : " + f.getFname()+ " " + f.getLname());
 				System.out.println("Faculty Address : " + f.getAddress() + ", " + f.getState() + ", " + f.getPin());
 				System.out.println("Faculty Mobile : " + f.getMobile());
 				System.out.println("Faculty Email : " + f.getEmail());
 				System.out.println("Faculty Username : " + f.getUsername());
-				System.out.println("------------------------------");
+				System.out.println("------------------------------"+ConsoleColors.RESET);
 				
 			});
-			
+			System.out.println();
 		} catch (FacultyException fe) {
-
+			System.out.println();
 			System.out.println(ConsoleColors.RED_BACKGROUND+fe.getMessage()+ConsoleColors.RESET);
+			System.out.println();
 		}
 		
 

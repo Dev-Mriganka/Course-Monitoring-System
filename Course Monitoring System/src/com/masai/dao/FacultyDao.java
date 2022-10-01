@@ -7,7 +7,7 @@ import com.masai.exceptions.FacultyException;
 
 public interface FacultyDao {
 	
-	public String addFaculty(Faculty faculty);
+	public String addFaculty(Faculty faculty) throws FacultyException;
 	
 	public List<Faculty> getAllFacultyDetails()throws FacultyException;
 	
@@ -15,6 +15,6 @@ public interface FacultyDao {
 	
 	public Faculty searchFacultyById(int id) throws FacultyException;
 	
-	public String updateFacultyDetails(String str, String set, int id);
+	public String updateFacultyDetails(String str, String set, int id) throws FacultyException;
 	
 }

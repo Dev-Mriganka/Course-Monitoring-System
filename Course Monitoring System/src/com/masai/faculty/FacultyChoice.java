@@ -1,8 +1,9 @@
-package com.masai.admin;
+package com.masai.faculty;
 
 import java.util.Scanner;
 
 import com.masai.custom.ConsoleColors;
+import com.masai.exceptions.InputException;
 
 public class FacultyChoice {
 	
@@ -18,12 +19,20 @@ public class FacultyChoice {
 			System.out.println("3. Search Faculty");
 			System.out.println("4. Back");
 			System.out.println("5. Close"+ConsoleColors.RESET);
-			System.out.println();
+			
 			
 			int ch = sc.nextInt();
 		
 			if(ch == 1) {
-				AddFaculty.addFacultyMtd();
+				try {
+					AddFaculty.addFacultyMtd();
+					
+				} catch (InputException e) {
+					System.out.println();
+					System.out.println(e.getMessage());
+					System.out.println();
+					
+				}
 				
 			}else if(ch == 2) {
 				UpdateChoice.updateOptions();
@@ -32,6 +41,7 @@ public class FacultyChoice {
 				SearchChoice.searchOptions();
 				
 			}else if(ch== 5) {
+				System.out.println();
 				System.out.println(ConsoleColors.BANANA_YELLOW+"See You Soon..."+ConsoleColors.RESET);
 				System.exit(0);
 				
@@ -39,10 +49,11 @@ public class FacultyChoice {
 				break;
 				
 			}else {
-				
+				System.out.println();
 				System.out.println(ConsoleColors.RED+"Wrong Input Try Again"+ConsoleColors.RESET);
+				System.out.println();
+				
 			}
-			
 		}
 		
 	}
