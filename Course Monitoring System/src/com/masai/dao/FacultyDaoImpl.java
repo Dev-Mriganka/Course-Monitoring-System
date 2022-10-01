@@ -160,8 +160,7 @@ public class FacultyDaoImpl implements FacultyDao {
 	}
 	
 	
-	
-	
+	// See All Faculty Details Present in Database
 	@Override
 	public List<Faculty> getAllFacultyDetails() throws FacultyException {
 		
@@ -229,6 +228,39 @@ public class FacultyDaoImpl implements FacultyDao {
 			
 			message = ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET;
 			
+		}
+		
+		return message;
+	}
+
+
+	
+	// Delete details of faculty table
+	@Override
+	public String deleteFaculty(int facultyId) throws FacultyException {
+		
+		String message = ConsoleColors.RED+"Faculty Data Not Updated..."+ConsoleColors.RESET;
+		
+		try(Connection conn = DBconn.provideConnection()){
+			
+			
+			PreparedStatement ps = conn .prepareStatement("delete from faculty where facultyId = ?");
+			
+			ps.setInt(1, facultyId);
+			
+			int x = ps.executeUpdate();
+			
+			if(x>0) {		
+				message = ConsoleColors.GREEN+"Faculty Deleted Successfully.."+ConsoleColors.RESET;
+				
+			}else {
+				throw new FacultyException(ConsoleColors.RED+"Faculty Not Exist"+ConsoleColors.RESET);
+				
+			}
+			
+		} catch (SQLException e) {
+
+			throw new FacultyException(ConsoleColors.RED+"Wrong Data Format"+ConsoleColors.RESET);
 		}
 		
 		return message;

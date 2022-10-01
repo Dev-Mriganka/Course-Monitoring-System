@@ -17,4 +17,6 @@ public interface FacultyDao {
 	
 	public String updateFacultyDetails(String str, String set, int id) throws FacultyException;
 	
+	public String deleteFaculty(int facultyId) throws FacultyException;
+	
 }

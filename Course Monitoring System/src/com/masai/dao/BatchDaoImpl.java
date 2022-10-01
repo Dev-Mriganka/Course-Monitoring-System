@@ -96,7 +96,7 @@ public class BatchDaoImpl implements BatchDao{
 		try(Connection conn = DBconn.provideConnection()){
 			
 			
-			PreparedStatement ps = conn .prepareStatement("Select * from Batch where batchId = ?");
+			PreparedStatement ps = conn .prepareStatement("Select b.batchId, b.courseId, b.facultyId, f.facultyFname, b.noOfStudents, b.batchstartDate, b.duration from Batch b, Faculty f where b.facultyID = f.facultyID and b.batchId = ?");
 			
 			ps.setString(1, id);
 			
@@ -106,13 +106,14 @@ public class BatchDaoImpl implements BatchDao{
 				String bid = rs.getString("batchId");
 				int cid = rs.getInt("courseId");
 				int fid = rs.getInt("facultyId");
+				String fName = rs.getString("facultyFname");
 				int nos = rs.getInt("noOfStudents");
 				Date date = rs.getDate("batchstartDate");
 				String dur = rs.getString("duration");
 				
 				String sDate = date.toString();
 				
-				batch = new Batch(bid,cid,fid,nos,sDate,dur);
+				batch = new Batch(bid,cid,fid,fName,nos,sDate,dur);
 				
 			}else 
 				throw new BatchException(ConsoleColors.RED_BACKGROUND+"Batch does not exist with this id "+ id + "."+ConsoleColors.RESET);
@@ -138,8 +139,8 @@ public class BatchDaoImpl implements BatchDao{
 		try(Connection conn = DBconn.provideConnection()){
 			
 			
-			PreparedStatement ps = conn .prepareStatement("Select * from Batch where courseId = ("
-					+ "Select courseId from course where courseName = ?)");
+			PreparedStatement ps = conn .prepareStatement("Select b.batchId, b.courseId, b.facultyId, f.facultyFname, b.noOfStudents, b.batchstartDate, b.duration from Batch b, Faculty f where b.courseId = ("
+					+ "Select courseId from course where courseName = ?) and b.facultyID = f.facultyID");
 			
 			ps.setString(1, name);
 			
@@ -149,13 +150,15 @@ public class BatchDaoImpl implements BatchDao{
 				String bid = rs.getString("batchId");
 				int cid = rs.getInt("courseId");
 				int fid = rs.getInt("facultyId");
+				String fName = rs.getString("facultyFname");
 				int nos = rs.getInt("noOfStudents");
 				Date date = rs.getDate("batchstartDate");
 				String dur = rs.getString("duration");
 				
 				String sDate = date.toString();
 				
-				Batch batch = new Batch(bid,cid,fid,nos,sDate,dur);
+				Batch batch = new Batch(bid,cid,fid,fName,nos,sDate,dur);
+
 				
 				batches.add(batch);
 			}
@@ -181,7 +184,7 @@ public class BatchDaoImpl implements BatchDao{
 		
 		try(Connection conn = DBconn.provideConnection()){
 					
-			PreparedStatement ps = conn .prepareStatement("Select * from Batch");
+			PreparedStatement ps = conn .prepareStatement("Select b.batchId, b.courseId, b.facultyId, f.facultyFname, b.noOfStudents, b.batchstartDate, b.duration  from Batch b , Faculty f where b.facultyID = f.facultyID;");
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -189,14 +192,15 @@ public class BatchDaoImpl implements BatchDao{
 				String bid = rs.getString("batchId");
 				int cid = rs.getInt("courseId");
 				int fid = rs.getInt("facultyId");
+				String fName = rs.getString("facultyFname");
 				int nos = rs.getInt("noOfStudents");
 				Date date = rs.getDate("batchstartDate");
 				String dur = rs.getString("duration");
 				
 				String sDate = date.toString();
 				
-				Batch batch = new Batch(bid,cid,fid,nos,sDate,dur);
-				System.out.println(batch);
+				Batch batch = new Batch(bid,cid,fid,fName,nos,sDate,dur);
+//				System.out.println(batch);
 				
 				batches.add(batch);
 			}
@@ -273,9 +277,36 @@ public class BatchDaoImpl implements BatchDao{
 		
 		return message;
 	}
-	
-	
-	
-	
 
+
+
+	@Override
+	public String allocateFaculty(int fName, String batchId) throws BatchException {
+		
+		String message = ConsoleColors.RED+"Faculty not allocated to "+batchId+" batch.."+ConsoleColors.RESET;
+		
+		try(Connection conn = DBconn.provideConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement("update batch set facultyId = ? where batchId = ?");
+			
+			ps.setInt(1, fName);
+			ps.setString(2, batchId);
+			
+			int x = ps.executeUpdate();
+			
+			if(x>0) {		
+				message = ConsoleColors.GREEN+"Faculty allocated to "+batchId+" batch.."+ConsoleColors.RESET;	
+			}else {
+				throw new BatchException(ConsoleColors.RED+"Batch doesn't Not Exist"+ConsoleColors.RESET);
+			}
+			
+		} catch (SQLException e) {
+
+			throw new BatchException(ConsoleColors.RED+"Wrong Data Format"+ConsoleColors.RESET);
+		}
+		
+		return message;
+	}
+	
+	
 }

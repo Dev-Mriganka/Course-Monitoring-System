@@ -37,6 +37,7 @@ public class SearchBatchChoice {
 				}else if(ch == 2) {				
 					try {
 						SearchBatchByName.searchBatchByName();
+						
 					} catch (InputException e) {
 						System.out.println();
 						System.out.println(e.getMessage());

@@ -18,4 +18,6 @@ public interface BatchDao {
 	public String updateBatch (String str, String set, String batchId) throws BatchException;
 	
 	public String deleteBatch(String batchId) throws BatchException;
+	
+	public String allocateFaculty(int fName, String batchId) throws BatchException;
 }

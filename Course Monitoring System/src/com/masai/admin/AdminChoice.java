@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import com.masai.batch.BatchChoice;
 import com.masai.course.CourseChoice;
+import com.masai.courseplan.CoursePlanChoice;
+import com.masai.courseplan.ViewAllPlanDayWise;
 import com.masai.custom.ConsoleColors;
 import com.masai.faculty.FacultyChoice;
 
@@ -37,10 +39,10 @@ public class AdminChoice {
 				BatchChoice.facultyOptions();
 	
 			}else if(ch == 4) {
-				
+				CoursePlanChoice.CourseOptions();
 
 			}else if(ch == 5) {
-				
+				ViewAllPlanDayWise.viewAllPlan();
 
 			}else if(ch == 6) {
 				
