@@ -108,7 +108,10 @@ public class UpdateBatch {
 			}
 			
 		}catch(InputMismatchException e){
-			
+			System.out.println();
+			System.out.println(ConsoleColors.RED+"Wrong Input Try Again!"+ConsoleColors.RESET);
+			System.out.println();
+			updateCourse(batchId);
 		}
 
 	}

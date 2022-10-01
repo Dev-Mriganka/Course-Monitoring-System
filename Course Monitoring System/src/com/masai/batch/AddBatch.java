@@ -27,7 +27,7 @@ public class AddBatch {
 			System.out.println(ConsoleColors.CYAN+"Enter Students no. of the Batch"+ConsoleColors.RESET);
 			int noStud = sc.nextInt();
 			
-			System.out.println(ConsoleColors.CYAN+"Enter Start date of the Batch"+ConsoleColors.RESET);
+			System.out.println(ConsoleColors.CYAN+"Enter Start date of the Batch(YYYY-MM-DD)."+ConsoleColors.RESET);
 			String date = sc.next();
 			
 			sc.nextLine();
