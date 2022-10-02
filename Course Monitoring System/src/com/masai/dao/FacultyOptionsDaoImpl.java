@@ -76,9 +76,9 @@ public class FacultyOptionsDaoImpl implements FacultyOptionsDao{
 			
 			PreparedStatement ps = conn.prepareStatement("update faculty set password = ? where mobile = ? and email = ?");
 			
-			ps.setString(1, mobile);
-			ps.setString(2, email);
-			ps.setString(3, pass);
+			ps.setString(1, pass);
+			ps.setString(3, email);
+			ps.setString(2, mobile);
 			
 			int x = ps.executeUpdate();
 			
