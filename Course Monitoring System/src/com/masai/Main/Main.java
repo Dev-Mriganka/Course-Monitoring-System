@@ -23,12 +23,10 @@ public class Main {
 				
 			String ch = sc.next();
 				
-			if(ch.equals("1")) {
-				
+			if(ch.equals("1")) {			
 				AdminLogin.LoginAdmin();
 					
-			}else if(ch.equals("2")) {
-				
+			}else if(ch.equals("2")) {		
 				FacultyLogin.login();
 				
 			}else if(ch.equals("3")) {

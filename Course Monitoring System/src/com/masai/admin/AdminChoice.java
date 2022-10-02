@@ -3,6 +3,7 @@ package com.masai.admin;
 import java.util.Scanner;
 
 import com.masai.batch.BatchChoice;
+import com.masai.batch.GenerateReport;
 import com.masai.course.CourseChoice;
 import com.masai.courseplan.CoursePlanChoice;
 import com.masai.courseplan.ViewAllPlanDayWise;
@@ -46,7 +47,7 @@ public class AdminChoice {
 				ViewAllPlanDayWise.viewAllPlan();
 
 			}else if(ch == 6) {
-				
+				GenerateReport.viewAllBatch();
 
 			}else if(ch== 8) {
 				System.out.println();

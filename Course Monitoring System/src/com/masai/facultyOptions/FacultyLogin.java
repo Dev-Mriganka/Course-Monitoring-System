@@ -45,12 +45,20 @@ public class FacultyLogin {
 				System.out.println(ConsoleColors.YELLOW+i+" Attempts Left.."+ConsoleColors.RESET);
 				System.out.println();
 				while(true) {
-					System.out.println(ConsoleColors.CYAN+"Want to try again?(y/n)"+ConsoleColors.RESET);
-					String choice = sc.next();
+					System.out.println(ConsoleColors.CYAN+"1. Forget Password");
+					System.out.println("2. Want to try again?");
+					System.out.println("3. Exit"+ConsoleColors.RESET);
 					
-					if(choice.equalsIgnoreCase("y")) {
+					String ch = sc.next();
+					if(ch.equals("1")) {	
+						boolean check = ForgetPassword.forgetPass();
+						if(check)
+							return;
+						else
+							break;
+					}else if(ch.equals("2")) {	
 						break;
-					}else if(choice.equalsIgnoreCase("n")){
+					}else if(ch.equals("3")) {	
 						return;
 					}else {
 						System.out.println();
@@ -58,6 +66,7 @@ public class FacultyLogin {
 						System.out.println();
 					}
 				}
+				
 			}
 		}
 		System.out.println();
