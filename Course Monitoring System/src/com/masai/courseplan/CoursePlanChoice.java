@@ -6,9 +6,7 @@ import com.masai.custom.ConsoleColors;
 
 public class CoursePlanChoice {
 	
-	public static void main(String[] args) {
-		CourseOptions();
-	}
+
 	public static void CourseOptions() {
 		
 		try {

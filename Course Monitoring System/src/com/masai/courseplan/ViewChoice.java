@@ -17,7 +17,7 @@ public static void viewOptions() {
 				
 				System.out.println(ConsoleColors.CYAN+"1. View All Plan Day Wise");
 				System.out.println("2. Search By Faculty");
-				System.out.println("3. Search By Day");
+				System.out.println("3. Search By Date");
 				System.out.println("4. Back");
 				System.out.println("5. Close"+ConsoleColors.RESET);
 				
@@ -39,7 +39,9 @@ public static void viewOptions() {
 					}
 					
 				}else if(ch == 3) {
-					
+					System.out.println("Enter Date(YYYY-MM-DD): ");
+					String date = sc.next();
+					ViewPlanByDate.viewAllPlan(date);
 					
 				}else if(ch == 4) {
 					break;

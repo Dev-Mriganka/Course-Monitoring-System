@@ -49,6 +49,18 @@ public class UpdateStatus {
 			
 			int dayNo = sc.nextInt();
 			
+			while(true) {
+			System.out.println(ConsoleColors.YELLOW_BOLD_BRIGHT+"Are You Sure?(Not Possible to Revert)(y/n)"+ConsoleColors.RESET);
+			
+				String choice = sc.next();
+				if(choice.equalsIgnoreCase("y")) 
+					break;
+				else if(choice.equalsIgnoreCase("n"))
+					return;
+				else
+					System.out.println(ConsoleColors.RED+"Please Enter Right Input"+ConsoleColors.RESET);
+				
+			}
 			CourseplanDao dao = new CourseplanDaoImpl();
 			
 			try {

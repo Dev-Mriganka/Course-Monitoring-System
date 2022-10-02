@@ -15,20 +15,18 @@ public class UpdateOptions {
 			
 			while(true) {
 				
-				System.out.println(ConsoleColors.CYAN+"1. Update Topic");
-				System.out.println("2. Update Status");
-				System.out.println("3. Update Day");
-				System.out.println("4. Back");
-				System.out.println("5. Close"+ConsoleColors.RESET);
+				System.out.println(ConsoleColors.CYAN+"1. Update Status");
+				System.out.println("2. Update Day");
+				System.out.println("3. Back");
+				System.out.println("4. Close"+ConsoleColors.RESET);
 				
 				int ch = sc.nextInt();
 				
 				if(ch == 1) {
 					System.out.println("Enter Faculty ID: ");
 					int facultyId = sc.nextInt();
-					if(CheckFacultyId.checkFacultyId(facultyId)) {	
-						UpdateTopic.updateTopic(facultyId);
-						
+					if(CheckFacultyId.checkFacultyId(facultyId)) {
+						ChangeStatusAdmin.changeStatusAdmin(facultyId);
 					}else {
 						System.out.println();
 						System.out.println(ConsoleColors.RED+"No Faculty Present with FacultyId "+facultyId+ConsoleColors.RESET);
@@ -39,17 +37,6 @@ public class UpdateOptions {
 					System.out.println("Enter Faculty ID: ");
 					int facultyId = sc.nextInt();
 					if(CheckFacultyId.checkFacultyId(facultyId)) {
-						UpdateStatus.updateStatus(facultyId);
-					}else {
-						System.out.println();
-						System.out.println(ConsoleColors.RED+"No Faculty Present with FacultyId "+facultyId+ConsoleColors.RESET);
-						System.out.println();
-					}
-					
-				}else if(ch == 3) {
-					System.out.println("Enter Faculty ID: ");
-					int facultyId = sc.nextInt();
-					if(CheckFacultyId.checkFacultyId(facultyId)) {
 						UpdateDate.updateDate(facultyId);
 					}else {
 						System.out.println();
@@ -57,10 +44,10 @@ public class UpdateOptions {
 						System.out.println();
 					}
 					
-				}else if(ch == 4) {
+				}else if(ch == 3) {
 					break;
 					
-				}else if(ch == 5) {
+				}else if(ch == 4) {
 					System.out.println();
 					System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"See You Soon..."+ConsoleColors.RESET);
 					System.exit(0);

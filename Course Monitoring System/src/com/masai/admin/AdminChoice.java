@@ -11,8 +11,9 @@ import com.masai.faculty.FacultyChoice;
 
 public class AdminChoice {
 	
-	public static void main(String[] args) {
+	public static void adminOption() {
 		
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		
 		
@@ -23,7 +24,7 @@ public class AdminChoice {
 			System.out.println("4. Course Plan");
 			System.out.println("5. View Day wise Planner");
 			System.out.println("6. Generate Report");
-			System.out.println("7. Back");
+			System.out.println("7. Log Out");
 			System.out.println("8. Close the App"+ConsoleColors.RESET);
 			
 			
@@ -60,11 +61,11 @@ public class AdminChoice {
 				System.out.println();
 				System.out.println(ConsoleColors.RED+"Wrong Input Try Again!"+ConsoleColors.RESET);
 				System.out.println();
+				adminOption();
 			}
 			
 		}
 		
-		sc.close();
 		
 	}
 	

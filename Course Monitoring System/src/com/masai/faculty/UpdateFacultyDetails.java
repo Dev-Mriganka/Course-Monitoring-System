@@ -41,6 +41,8 @@ public class UpdateFacultyDetails {
 					int ch = sc.nextInt();
 					
 					if(ch == 8) {
+						flag = false;
+						flag2 = false;
 						break;
 						
 					}else if(ch== 9) {
