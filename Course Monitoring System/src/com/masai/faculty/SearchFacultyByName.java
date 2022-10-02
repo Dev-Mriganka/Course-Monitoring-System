@@ -11,7 +11,7 @@ import com.masai.exceptions.FacultyException;
 
 public class SearchFacultyByName {
 	
-	public static void searchByName() {
+	public static boolean searchByName() {
 		
 		
 			@SuppressWarnings("resource")
@@ -39,12 +39,14 @@ public class SearchFacultyByName {
 				});
 				System.out.println();
 				
+				
 			} catch (FacultyException fe) {
 				System.out.println();
 				System.out.println(ConsoleColors.RED_BACKGROUND+fe.getMessage()+ConsoleColors.RESET);
 				System.out.println();
+				return false;
 			}
-
+		return true;
 		
 	}
 	

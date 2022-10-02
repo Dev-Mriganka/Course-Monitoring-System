@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.masai.bean.Batch;
+//import com.masai.bean.Report;
 import com.masai.custom.ConsoleColors;
 import com.masai.exceptions.BatchException;
 import com.masai.utility.DBconn;
@@ -279,7 +280,8 @@ public class BatchDaoImpl implements BatchDao{
 	}
 
 
-
+	
+	// Allocate Faculty in Batch
 	@Override
 	public String allocateFaculty(int fName, String batchId) throws BatchException {
 		
@@ -307,6 +309,56 @@ public class BatchDaoImpl implements BatchDao{
 		
 		return message;
 	}
+
+
+
+	
+	
+	
+	// Get all Detailed Batch Report
+//	@Override
+//	public List<Report> generateReport(String id) throws BatchException {
+//		
+//		List<Report> reports = null;
+//		
+//		try(Connection conn = DBconn.provideConnection()){
+//			
+//			
+//			PreparedStatement ps = conn .prepareStatement("Select b.batchId, b.courseId, f.facultyFname, b.noOfStudents, b.batchstartDate, b.duration, (select count(c.daynumber) where c.batchid = b.batchid) as planned, "
+//					+ "(select count(c.status) where status = true and c.batchid = b.batchid) as completed from Batch b, Faculty f, courseplan c where b.facultyID = f.facultyID and b.batchId = c.batchId and b.batchId = ?;");
+//			
+//			ps.setString(1, id);
+//			
+//			ResultSet rs = ps.executeQuery();
+//			
+//			while(rs.next()) {		
+//				String bid = rs.getString("batchId");
+//				int cid = rs.getInt("courseId");
+//				String fName = rs.getString("facultyFname");
+//				int sno = rs.getInt("noOfStudents");
+//				Date date = rs.getDate("batchstartDate");
+//				String dur = rs.getString("duration");
+//				int pland = rs.getInt("noOfStudents");
+//				int comp = rs.getInt("noOfStudents");
+//				
+//				String sDate = date.toString();
+//				
+//				Report report = new Report(bid,cid,fName,sno,sDate,dur,pland,comp);
+//				
+//				reports.add(report);	
+//			} 
+//			if(reports.size()==0)
+//				throw new BatchException(ConsoleColors.RED_BACKGROUND+"Batch does not exist with this id "+ id + "."+ConsoleColors.RESET);
+//			
+//		}catch(SQLException e) {
+//			
+//			throw new BatchException(ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET);
+//			
+//		}
+//		
+//		
+//		return reports;
+//	}
 	
 	
 }

@@ -13,10 +13,9 @@ import com.masai.dao.CourseplanDaoImpl;
 import com.masai.exceptions.CoursePlanException;
 import com.masai.utility.DBconn;
 
-public class AddCoursePlanByFaculty {
+public class ChangeStatusAdmin {
 	
-	public static void addCoursePlanMtd(int facultyId) {
-		
+public static void changeStatusAdmin(int facultyId) {
 		
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -34,7 +33,7 @@ public class AddCoursePlanByFaculty {
 			}
 			
 			if(arr.size()==0) {
-				System.out.println(ConsoleColors.YELLOW+"facultyId is not Allocated to Any Batch"+ConsoleColors.RESET);
+				System.out.println(ConsoleColors.YELLOW+facultyId + "is not Allocated to Any Batch"+ConsoleColors.RESET);
 				return;
 			}
 			
@@ -50,11 +49,10 @@ public class AddCoursePlanByFaculty {
 			
 			int dayNo = sc.nextInt();
 			
-			
 			CourseplanDao dao = new CourseplanDaoImpl();
 			
 			try {
-				String res = dao.addCoursePlan(batchId, dayNo);
+				String res = dao.updateStatusAdmin(batchId, dayNo);
 				System.out.println();
 				System.out.println(res);
 				System.out.println();
@@ -66,14 +64,12 @@ public class AddCoursePlanByFaculty {
 				
 			}
 			
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println();
 			System.out.println(ConsoleColors.RED+"Please Enter Right Input"+ConsoleColors.RESET);
 			System.out.println();
-			addCoursePlanMtd(facultyId);
-			
+			changeStatusAdmin(facultyId);
 		}
-		
 		
 	}
 	

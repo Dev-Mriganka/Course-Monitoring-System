@@ -21,7 +21,7 @@ public class CourseplanDaoImpl implements CourseplanDao{
 	
 	// Add New Course Plan into Database
 	@Override
-	public String addCoursePlan(String batchId, int dayNo, String topic) throws CoursePlanException {
+	public String addCoursePlan(String batchId, int dayNo) throws CoursePlanException {
 		
 		String message = ConsoleColors.RED+"Data Not Inserted..."+ConsoleColors.RESET;
 		
@@ -53,12 +53,11 @@ public class CourseplanDaoImpl implements CourseplanDao{
 				dt = sdf.format(c.getTime());  // dt is now the new date
 			}
 			
-			PreparedStatement ps = conn .prepareStatement("insert into courseplan(batchId, daynumber, planDate, topic) values(?, ?, ?, ?)");
+			PreparedStatement ps = conn .prepareStatement("insert into courseplan(batchId, daynumber, planDate) values(?, ?, ?)");
 			
 			ps.setString(1, batchId);
 			ps.setInt(2, dayNo);
 			ps.setString(3, dt);
-			ps.setString(4, topic);
 			
 			int x = ps.executeUpdate();
 			
@@ -73,26 +72,42 @@ public class CourseplanDaoImpl implements CourseplanDao{
 	}
 	
 	
-	// Update Status of Course table
+	// Update Status of Course table for Faculty Only
 	@Override
 	public String updateStatus(String batchId, int dayNo) throws CoursePlanException {
 		
 		String message = ConsoleColors.RED+"Status Not Updated..."+ConsoleColors.RESET;
 		
 		try(Connection conn = DBconn.provideConnection()){
+			PreparedStatement ps1 = conn .prepareStatement("select datediff(planDate,curdate()) as date from courseplan where batchId = ? AND daynumber = ?");
 			
-			PreparedStatement ps = conn .prepareStatement("update courseplan set status = true where batchId = ? AND daynumber = ?");
+			ps1.setString(1, batchId);
+			ps1.setInt(2, dayNo);
 			
-			ps.setString(1, batchId);
-			ps.setInt(2, dayNo);
+			ResultSet rs = ps1.executeQuery();
 			
-			int x = ps.executeUpdate();
-			
-			if(x>0) {		
-				message = ConsoleColors.GREEN+"Status Updated Successfully.."+ConsoleColors.RESET;	
-			}else {
-				throw new CoursePlanException(ConsoleColors.RED+"Day no "+dayNo+" is not Planned yet.."+ConsoleColors.RESET);
+			int diff =-1;
+			if(rs.next()) {
+				diff = rs.getInt(1);
 			}
+			
+			if(diff<=0) {
+				PreparedStatement ps = conn .prepareStatement("update courseplan set status = true where batchId = ? AND daynumber = ?");
+				
+				ps.setString(1, batchId);
+				ps.setInt(2, dayNo);
+				
+				int x = ps.executeUpdate();
+				
+				if(x>0) {		
+					message = ConsoleColors.GREEN+"Status Updated Successfully.."+ConsoleColors.RESET;	
+				}else {
+					throw new CoursePlanException(ConsoleColors.RED+"Day no "+dayNo+" is not Planned yet.."+ConsoleColors.RESET);
+				}
+			}else {
+				throw new CoursePlanException(ConsoleColors.RED+"You Can't Change Status For a Future Date"+ConsoleColors.RESET);
+			}
+			
 		}catch(Exception e) {
 			throw new CoursePlanException(ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET);
 		}
@@ -101,7 +116,7 @@ public class CourseplanDaoImpl implements CourseplanDao{
 	}
 	
 	
-	// Update topic of Course table
+	// Update topic of Course table for Faculty Only
 	@Override
 	public String updateTopic(String batchId, int dayNo, String topic) throws CoursePlanException {
 			
@@ -133,7 +148,7 @@ public class CourseplanDaoImpl implements CourseplanDao{
 		return message;
 	}
 	
-	// Delete Plan 
+	
 	// Delete Day plan from Course table
 	@Override
 	public String deleteStatus(String batchId, int dayNo) throws CoursePlanException {
@@ -166,9 +181,7 @@ public class CourseplanDaoImpl implements CourseplanDao{
 	}
 
 	
-	
-	// View Al Plans Date Wise
-	// See All Course Plan Present in Database
+	// View All Plans Date Wise
 	@Override
 	public List<CoursePlan> viewAllCoursePlanDateWise() throws CoursePlanException {
 		
@@ -198,7 +211,7 @@ public class CourseplanDaoImpl implements CourseplanDao{
 			}
 			
 			if(coursePlans.size() == 0)
-				throw new CoursePlanException(ConsoleColors.RED_BACKGROUND+"No Such Plan.."+ConsoleColors.RESET);
+				throw new CoursePlanException(ConsoleColors.RED_BACKGROUND+"No Plan is Created till Now.."+ConsoleColors.RESET);
 			
 		}catch(SQLException e) {
 			throw new CoursePlanException(ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET);
@@ -209,9 +222,7 @@ public class CourseplanDaoImpl implements CourseplanDao{
 	}
 	
 	
-	
 	// View Plans As Per Faculty
-	// See Course Plan according Faculty
 	@Override
 	public List<CoursePlan> viewFacultyCoursePlan(int facultyId) throws CoursePlanException{
 		
@@ -253,15 +264,11 @@ public class CourseplanDaoImpl implements CourseplanDao{
 		
 	}
 
-
-	
 	
 	// Update Date of Course table
 	@Override
 	public String updateDate(String batchId, int dayNo, int newDay) throws CoursePlanException {
 		
-		System.out.println(newDay);
-		System.out.println();
 		
 		String message = ConsoleColors.RED+"Status Not Updated..."+ConsoleColors.RESET;
 		
@@ -295,7 +302,7 @@ public class CourseplanDaoImpl implements CourseplanDao{
 			
 			
 			PreparedStatement ps = conn.prepareStatement("update courseplan set daynumber = ? where batchId = ? AND daynumber = ?");
-			System.out.println(newDay);
+
 			ps.setInt(1, newDay);
 			ps.setString(2, batchId);
 			ps.setInt(3, dayNo);
@@ -305,7 +312,7 @@ public class CourseplanDaoImpl implements CourseplanDao{
 			if(x>0) {		
 				
 				PreparedStatement ps3 = conn.prepareStatement("update courseplan set planDate = ? where batchId = ? AND daynumber = ?");
-				System.out.println(newDay);
+
 				
 				ps3.setString(1, dt);
 				ps3.setString(2, batchId);
@@ -331,4 +338,78 @@ public class CourseplanDaoImpl implements CourseplanDao{
 			
 		return message;
 	}
+
+	
+	// View Plans By Date
+	@Override
+	public List<CoursePlan> viewCourseByDate(String date) throws CoursePlanException {
+		
+		List<CoursePlan> coursePlans = new ArrayList<>();
+		
+		try(Connection conn = DBconn.provideConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement("Select * from courseplan where planDate = ? ");
+			
+			ps.setString(1, date);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {		
+				
+				int pid = rs.getInt("planId");
+				String bid = rs.getString("batchId");
+				int dNo = rs.getInt("daynumber");
+				String topic = rs.getString("topic");
+				Date rdate = rs.getDate("planDate");
+				boolean staus = rs.getBoolean("status");
+				
+				String dt = rdate.toString();
+				
+				CoursePlan course = new CoursePlan(pid, bid, dNo, topic, dt, staus);
+				
+				coursePlans.add(course);
+				
+			}
+			
+			if(coursePlans.size() == 0)
+				throw new CoursePlanException(ConsoleColors.RED_BACKGROUND+"No Plan for this Date"+ConsoleColors.RESET);
+			
+		}catch(SQLException e) {
+			throw new CoursePlanException(ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET);
+			
+		}
+		
+		return coursePlans;
+	}
+
+
+	
+	
+	// Update Status of Course table
+	@Override
+	public String updateStatusAdmin(String batchId, int dayNo) throws CoursePlanException {
+		
+		String message = ConsoleColors.RED+"Status Not Updated..."+ConsoleColors.RESET;
+		
+		try(Connection conn = DBconn.provideConnection()){
+			
+			PreparedStatement ps = conn .prepareStatement("update courseplan set status = false where batchId = ? AND daynumber = ?");
+			
+			ps.setString(1, batchId);
+			ps.setInt(2, dayNo);
+			
+			int x = ps.executeUpdate();
+			
+			if(x>0) {		
+				message = ConsoleColors.GREEN+"Status Updated Successfully.."+ConsoleColors.RESET;	
+			}else {
+				throw new CoursePlanException(ConsoleColors.RED+"Day no "+dayNo+" is not Planned yet.."+ConsoleColors.RESET);
+			}
+		}catch(Exception e) {
+			throw new CoursePlanException(ConsoleColors.RED_BACKGROUND+e.getMessage()+ConsoleColors.RESET);
+		}
+		
+		return message;
+		
+	}
+	
 }

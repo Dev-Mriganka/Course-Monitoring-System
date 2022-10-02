@@ -8,14 +8,14 @@ import com.masai.dao.CourseplanDao;
 import com.masai.dao.CourseplanDaoImpl;
 import com.masai.exceptions.CoursePlanException;
 
-public class ViewFacultyCoursePlan {
-
-	public static void viewByFaculty(int FacultyId) {
+public class ViewPlanByDate {
+	
+public static void viewAllPlan(String date) {
 		
 		CourseplanDao dao = new CourseplanDaoImpl();
 		
 		try {
-			List<CoursePlan> plans = dao.viewFacultyCoursePlan(FacultyId);
+			List<CoursePlan> plans = dao.viewCourseByDate(date);
 
 			System.out.println();
 			System.out.println(ConsoleColors.ORANGE+"--------------------------------------------------------------------------");
@@ -36,7 +36,7 @@ public class ViewFacultyCoursePlan {
 			System.out.println();
 			
 		}
-
+		
 	}
-
+	
 }

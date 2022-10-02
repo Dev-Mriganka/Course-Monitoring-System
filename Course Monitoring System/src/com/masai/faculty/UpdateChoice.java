@@ -15,7 +15,7 @@ public class UpdateChoice {
 		Scanner sc = new Scanner(System.in);
 		
 		while(true) {	
-			System.out.println();
+
 			System.out.println(ConsoleColors.CYAN+"1. Update By Id");
 			System.out.println("2. Update By Name");
 			System.out.println("3. Back");
@@ -37,15 +37,19 @@ public class UpdateChoice {
 				}
 				
 			}else if(ch == 2) {
-				SearchFacultyByName.searchByName();
-				try {
-					System.out.println(ConsoleColors.CYAN+"Enter id of Faculty"+ConsoleColors.RESET);
-					int id = sc.nextInt();
-					UpdateFacultyDetails.UpdateById(id);
-				}catch(Exception e) {
-					System.out.println();	
-					System.out.println(ConsoleColors.RED+"Wrong Input Try Again"+ConsoleColors.RESET);
-					System.out.println();
+				if(SearchFacultyByName.searchByName()) {
+					
+					try {
+						System.out.println(ConsoleColors.CYAN+"Enter id of Faculty"+ConsoleColors.RESET);
+						int id = sc.nextInt();
+						UpdateFacultyDetails.UpdateById(id);
+					}catch(Exception e) {
+						System.out.println();	
+						System.out.println(ConsoleColors.RED+"Wrong Input Try Again"+ConsoleColors.RESET);
+						System.out.println();
+						updateOptions();
+					}
+				}else {
 					updateOptions();
 				}
 				
